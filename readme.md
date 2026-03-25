@@ -9,11 +9,11 @@ A distributed threat intelligence platform deployed across Azure VMs, featuring 
 Multi-VM distributed architecture:
 | VM | Role | Docs |
 |---|---|---|
-| VM-1 | Attack Sensor (Suricata + Filebeat + Juice Shop) | [README](./vm-1-sensor/README.md) |
-| VM-2 | Ingestion Queue & Threat Intelligence | [README](./vm-2-ingest-queue/README.md) |
-| VM-3 | Event Processing Pipeline | [README](./vm-3-processor/README.md) |
-| VM-4 | Persistent Storage (PostgreSQL + PostGIS) | [README](./vm-4-database/README.md) |
-| VM-5 | UI & API (FastAPI + React + Nginx) | [README](./vm-5-ui-notifier/README.md) |
+| VM-1 | Attack Sensor (Suricata + Filebeat + Juice Shop) | [README](./vm-1-sensor/readme.md) |
+| VM-2 | Ingestion Queue & Threat Intelligence | [README](./vm-2-ingest-queue/readme.md) |
+| VM-3 | Event Processing Pipeline | [README](./vm-3-processor/readme.md) |
+| VM-4 | Persistent Storage (PostgreSQL + PostGIS) | [README](./vm-4-database/readme.md) |
+| VM-5 | UI & API (FastAPI + React + Nginx) | [README](./vm-5-ui-notifier/readme.md) |
 
 ## ✨ Features
 
