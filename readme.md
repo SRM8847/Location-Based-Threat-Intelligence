@@ -58,6 +58,27 @@ This is an educational/portfolio project. For production use:
 ### The architecture was developed in azure, because of free student credit availability and multiple VMs were used to accomodate the project within different accounts and to prevent the credit exhaustion. If your VM has sufficient capacity you can run it in single VM
 
 
+# 🔷 Deployment Order (IMPORTANT)
+
+Run in this order:
+
+```bash
+# VM-2 (Redis)
+docker-compose up -d
+
+# VM-4 (Database)
+docker-compose up -d
+
+# VM-3 (Processor)
+docker-compose up -d
+
+# VM-1 (Sensor)
+docker-compose up -d
+
+# VM-5 (UI/API)
+docker-compose up -d
+```
+
 ---
 
 ⭐ Star this repo if you find it useful!
