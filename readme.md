@@ -1,6 +1,6 @@
 # 🛡️ Location-Aware Threat Intelligence Platform
 
-A distributed threat intelligence platform deployed across Azure VMs, featuring real-time attack detection, geolocation enrichment, and VirusTotal integration.
+A distributed threat intelligence platform deployed across VMs, featuring real-time attack detection, geolocation enrichment, and VirusTotal integration.
 
 
 
@@ -26,9 +26,11 @@ Multi-VM distributed architecture:
 
 
 ### Prerequisites
-- 5 Azure VMs (Ubuntu 24.04, 2vCPU/4GB RAM each)
+- 5 VMs (Ubuntu 24.04, 2vCPU/4GB RAM each)
 - Docker & Docker Compose installed on all VMs
 - API keys: VirusTotal, AbuseIPDB, AlienVault OTX
+### The architecture was developed in Azure, because of free student credit availability and multiple VMs were used to accomodate the project within different accounts and to prevent the credit exhaustion. If your VM has sufficient capacity you can run it in single VM.
+
 
 ### Basic Setup
 
@@ -56,8 +58,6 @@ This is an educational/portfolio project. For production use:
 - Implement authentication
 - Use private VNet instead of public IPs
 - Rotate secrets regularly
-
-### The architecture was developed in azure, because of free student credit availability and multiple VMs were used to accomodate the project within different accounts and to prevent the credit exhaustion. If your VM has sufficient capacity you can run it in single VM
 
 
 # 🔷 Deployment Order (IMPORTANT)
