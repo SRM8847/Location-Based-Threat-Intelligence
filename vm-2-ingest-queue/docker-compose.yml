@@ -1,0 +1,55 @@
+version: '3.8'
+
+services:
+  redis:
+    image: redis:7-alpine
+    container_name: redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - /var/lib/redis:/data
+      - ./redis.conf:/usr/local/etc/redis/redis.conf
+    command: redis-server /usr/local/etc/redis/redis.conf
+    restart: unless-stopped
+    networks:
+      - project-network
+
+  ti-fetcher:
+    build:
+      context: ./ti-fetcher
+      dockerfile: Dockerfile
+    container_name: ti-fetcher
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+      - ABUSEIPDB_API_KEY=${ABUSEIPDB_API_KEY}
+      - OTX_API_KEY=${OTX_API_KEY}
+      - VIRUSTOTAL_API_KEY=${VIRUSTOTAL_API_KEY}
+      - FETCH_INTERVAL=3600
+    depends_on:
+      - redis
+    restart: unless-stopped
+    networks:
+      - project-network
+
+  log-parser:
+    build:
+      context: ./log-parser
+      dockerfile: Dockerfile
+    container_name: log-parser
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+      - INPUT_STREAM=suricata-events
+      - OUTPUT_STREAM=normalized-events
+    depends_on:
+      - redis
+    restart: unless-stopped
+    networks:
+      - project-network
+
+networks:
+  project-network:
+    driver: bridge
