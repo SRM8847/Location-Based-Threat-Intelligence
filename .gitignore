@@ -1,0 +1,94 @@
+# Environment variables with secrets
+.env
+*.env
+!.env.example
+!.env.template
+
+# Logs
+*.log
+logs/
+*.json.log
+eve.json
+eve.json.*
+
+# Suricata logs specifically
+suricata/logs/
+*/suricata/logs/
+
+# Docker volumes and data
+volumes/
+data/
+*.db
+*.sqlite
+
+# Python
+__pycache__/
+*.py[cod]
+*.so
+.Python
+venv/
+env/
+*.egg-info/
+.pytest_cache/
+.coverage
+
+# Node
+node_modules/
+build/
+dist/
+*.local
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+.npm
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Secrets and keys
+*_key
+*.pem
+*.key
+api_keys.txt
+credentials.json
+secrets/
+
+# Database dumps
+*.sql.gz
+dump.sql
+backup/
+
+# Large binary files
+*.mmdb
+GeoLite2-*.mmdb
+
+# Compiled files
+*.pyc
+*.pyo
+*.so
+*.dll
+*.exe
+
+# OS files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
+*.cache
+.cache/
+
+# Docker build artifacts
