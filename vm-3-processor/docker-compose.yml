@@ -1,0 +1,60 @@
+version: '3.8'
+
+services:
+  normalizer:
+    build:
+      context: ./normalizer
+      dockerfile: Dockerfile
+    container_name: normalizer
+    environment:
+      - REDIS_HOST=${VM2_PUBLIC_IP}
+      - REDIS_PORT=6379
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+      - INPUT_STREAM=normalized-events
+      - OUTPUT_STREAM=enriched-events
+    restart: unless-stopped
+    networks:
+      - project-network
+
+  enricher:
+    build:
+      context: ./enricher
+      dockerfile: Dockerfile
+    container_name: enricher
+    environment:
+      - REDIS_HOST=${VM2_PUBLIC_IP}
+      - REDIS_PORT=6379
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+      - INPUT_STREAM=enriched-events
+      - OUTPUT_STREAM=correlated-events
+      - CMDB_PATH=/cmdb/sites.csv
+      - GEOIP_DB_PATH=/geoip/GeoLite2-City.mmdb
+    volumes:
+      - /opt/cmdb:/cmdb:ro
+      - /opt/project:/geoip:ro
+    restart: unless-stopped
+    networks:
+      - project-network
+
+  correlator:
+    build:
+      context: ./correlator
+      dockerfile: Dockerfile
+    container_name: correlator
+    environment:
+      - REDIS_HOST=${VM2_PUBLIC_IP}
+      - REDIS_PORT=6379
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+      - POSTGRES_HOST=${VM4_PUBLIC_IP}
+      - POSTGRES_PORT=5432
+      - POSTGRES_DB=threat_intel
+      - POSTGRES_USER=tiuser
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - INPUT_STREAM=correlated-events
+    restart: unless-stopped
+    networks:
+      - project-network
+
+networks:
+  project-network:
+    driver: bridge
