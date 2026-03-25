@@ -2,7 +2,7 @@
 
 A distributed threat intelligence platform deployed across Azure VMs, featuring real-time attack detection, geolocation enrichment, and VirusTotal integration.
 
-![Architecture](docs/screenshots/architecture.png)
+
 
 ## 🏗️ Architecture
 
@@ -22,9 +22,6 @@ Multi-VM distributed architecture:
 ✅ Professional neon-themed dashboard  
 ✅ Multi-stage event processing pipeline  
 
-## 🚀 Quick Start
-
-See [docs/deployment-guide.md](docs/deployment-guide.md) for full deployment instructions.
 
 ### Prerequisites
 - 5 Azure VMs (Ubuntu 24.04, 2vCPU/4GB RAM each)
@@ -43,27 +40,12 @@ cd /opt/project
 docker-compose up -d
 ```
 
-## 📸 Screenshots
-
-![Dashboard](docs/screenshots/dashboard.png)
-*Main dashboard with interactive threat map*
-
-![Detailed Analysis](docs/screenshots/detailed-analysis.png)
-*VirusTotal threat intelligence analysis*
-
 ## 🛠️ Tech Stack
 
 **Security**: Suricata, Custom Detection Rules  
 **Backend**: Python, FastAPI, Redis, PostgreSQL/PostGIS  
 **Frontend**: React, Leaflet, Axios  
 **Infrastructure**: Docker, Azure VMs, Nginx  
-
-## 📖 Documentation
-
-- [Architecture Overview](docs/architecture.md)
-- [Deployment Guide](docs/deployment-guide.md)
-- [API Documentation](docs/api-documentation.md)
-- [Troubleshooting](docs/troubleshooting.md)
 
 ## 🔒 Security Note
 
@@ -73,7 +55,7 @@ This is an educational/portfolio project. For production use:
 - Use private VNet instead of public IPs
 - Rotate secrets regularly
 
-# The architecture was developed in azure, because of free student credit availability and multiple VMs were used to accomodate the project within different accounts and to prevent the credit exhaustion. If your VM has sufficient capacity you can run it in single VM
+### The architecture was developed in azure, because of free student credit availability and multiple VMs were used to accomodate the project within different accounts and to prevent the credit exhaustion. If your VM has sufficient capacity you can run it in single VM
 
 
 ---
