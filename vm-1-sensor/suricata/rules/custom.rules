@@ -1,0 +1,34 @@
+# SQL Injection Detection
+alert http any any -> any any (msg:"Possible SQL Injection - UNION SELECT"; flow:established,to_server; content:"union"; nocase; content:"select"; nocase; distance:0; within:10; classtype:web-application-attack; sid:1000001; rev:1;)
+
+alert http any any -> any any (msg:"Possible SQL Injection - OR 1=1"; flow:established,to_server; content:"or"; nocase; content:"1=1"; nocase; distance:0; within:10; classtype:web-application-attack; sid:1000002; rev:1;)
+
+# XSS Detection
+alert http any any -> any any (msg:"Possible XSS Attack - Script Tag"; flow:established,to_server; content:"<script"; nocase; classtype:web-application-attack; sid:1000003; rev:1;)
+
+alert http any any -> any any (msg:"Possible XSS Attack - JavaScript Event"; flow:established,to_server; content:"javascript:"; nocase; classtype:web-application-attack; sid:1000004; rev:1;)
+
+# Directory Traversal
+alert http any any -> any any (msg:"Directory Traversal Attempt"; flow:established,to_server; content:"../"; classtype:web-application-attack; sid:1000005; rev:1;)
+
+# Brute Force Detection
+alert http any any -> any any (msg:"Multiple Login Attempts"; flow:established,to_server; content:"POST"; http_method; content:"/login"; http_uri; threshold:type both, track by_src, count 5, seconds 60; classtype:attempted-user; sid:1000006; rev:1;)
+
+# Port Scanning
+alert tcp any any -> any any (msg:"Potential Port Scan"; flags:S; threshold:type both, track by_src, count 20, seconds 10; classtype:attempted-recon; sid:1000007; rev:1;)
+
+# File Upload
+alert http any any -> any any (msg:"Suspicious File Upload - PHP"; flow:established,to_server; content:"Content-Type: multipart/form-data"; http_header; content:".php"; http_client_body; classtype:web-application-attack; sid:1000010; rev:1;)
+
+# More sensitive SQL Injection
+alert http any any -> any any (msg:"POSSIBLE SQL Injection - Single Quote"; flow:established,to_server; content:"'"; http_uri; classtype:web-application-attack; sid:1000015; rev:1;)
+
+alert http any any -> any any (msg:"POSSIBLE SQL Injection - OR keyword"; flow:established,to_server; content:"OR"; nocase; http_uri; classtype:web-application-attack; sid:1000016; rev:1;)
+
+# More sensitive XSS
+alert http any any -> any any (msg:"POSSIBLE XSS - HTML Tag"; flow:established,to_server; content:"<"; http_uri; classtype:web-application-attack; sid:1000014; rev:1;)
+
+alert http any any -> any any (msg:"POSSIBLE XSS - Script Keyword"; flow:established,to_server; content:"script"; nocase; http_uri; classtype:web-application-attack; sid:1000013; rev:1;)
+
+# Connection to Juice Shop
+alert tcp any any -> any 3000 (msg:"Connection to Juice Shop Port"; flags:S; threshold:type both, track by_src, count 5, seconds 10; classtype:attempted-recon; sid:1000018; rev:1;)

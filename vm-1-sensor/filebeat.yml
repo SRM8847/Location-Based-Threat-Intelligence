@@ -1,0 +1,44 @@
+filebeat.inputs:
+  - type: log
+    enabled: true
+    paths:
+      - /var/log/suricata/eve.json
+    json.keys_under_root: true
+    json.add_error_key: true
+    fields:
+      sensor_id: vm1-sensor
+      sensor_location: azure-region-1
+    fields_under_root: true
+
+# Output to Redis on VM-2
+output.redis:
+  hosts: ["20.193.146.194:6379"]
+  password: "Location@1234"
+  key: "suricata-events"
+  db: 0
+  timeout: 5
+  max_retries: 3
+  bulk_max_size: 2048
+  
+# Alternative: If you want to use Logstash instead
+# output.logstash:
+#   hosts: ["<VM-2-PUBLIC-IP>:5044"]
+
+# Logging
+logging.level: info
+logging.to_files: true
+logging.files:
+  path: /var/log/filebeat
+  name: filebeat
+  keepfiles: 7
+  permissions: 0644
+
+# Processors
+processors:
+  - add_host_metadata:
+      when.not.contains.tags: forwarded
+  - add_cloud_metadata: ~
+  - add_docker_metadata: ~
+  - drop_fields:
+      fields: ["agent.ephemeral_id", "agent.id", "ecs.version"]
+      ignore_missing: true
